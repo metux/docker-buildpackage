@@ -76,10 +76,7 @@ docker_set_apt_proxy() {
     local proxy="$2"
 
     if [ "$proxy" ]; then
-        echo "configuring http proxy: $proxy"
-        echo "Acquire::http::Proxy \"$proxy\"" | \
-            docker_exec_sh $container_id "echo > /etc/apt/apt.conf.d/99proxy"
-
+        info "configuring http proxy: $proxy"
         docker_exec_sh $container_id "echo \"Acquire::http::Proxy \\\"$proxy\\\";\" > /etc/apt/apt.conf.d/99proxy"
     fi
 }
