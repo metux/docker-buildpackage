@@ -84,6 +84,21 @@ docker_set_apt_proxy() {
     fi
 }
 
+docker_set_apt_sources() {
+    local container_id="$1"
+    local ent="$2"
+
+    if [ "$ent" ]; then
+        info "adding extra apt sources entries: $ent"
+        docker_exec_sh $container_id "echo \"$ent\" >> /etc/apt/sources.list"
+    fi
+}
+
+docker_apt_update() {
+    local container_id="$1"
+    docker_exec_sh $container_id "apt-get update"
+}
+
 docker_container_start() {
     local baseimage="$1"; shift
     local name="$1"; shift

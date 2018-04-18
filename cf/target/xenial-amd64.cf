@@ -9,6 +9,12 @@ DISTRO_PROXY="$http_proxy"
 DISTRO_TARGET_NAME="$DISTRO_NAME"
 DISTRO_TARGET_COMPONENT="contrib"
 
+DISTRO_APT_EXTRA_SOURCES="
+    deb http://de.archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse
+    deb http://de.archive.ubuntu.com/ubuntu xenial-security main restricted universe multiverse
+    deb http://de.archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse
+"
+
 DISTRO_MARK_AUTO="
 
     adduser

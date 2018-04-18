@@ -13,6 +13,8 @@ __run_build() {
     local build_container_id=`docker_container_start $baseimage_name "$key" -v "$(cf_distro_aptcache_volume):$(get_aptcache_dir)"`
 
     docker_set_apt_proxy $build_container_id "$DISTRO_PROXY"
+    docker_set_apt_sources $build_container_id "$DISTRO_APT_EXTRA_SOURCES"
+    docker_apt_update $build_container_id
 
     info "copying source tree $src_dir into container $build_container_id ($build_dir)"
     docker_cp_to $build_container_id $src_dir $(dirname $build_dir)
