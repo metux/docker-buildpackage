@@ -7,13 +7,29 @@ __run_build() {
     local current_user=$(whoami)
     local build_dir="$(cf_container_build_prefix)/$(basename "$src_dir")"
     local pkg_name=$(debsrc_pkg_name $src_dir)
+    local container_param=""
+    local local_repo="/local-repo"
 
     info "Building package: $pkg_name"
 
-    local build_container_id=`docker_container_start $baseimage_name "$key" -v "$(cf_distro_aptcache_volume):$(get_aptcache_dir)"`
+    if [ "$DISTRO_APT_USE_BUILT_REPO" ]; then
+        info "Using locally built apt repo: $(cf_distro_target_repo)"
+        container_param="-v $(cf_distro_target_repo):$local_repo"
+        extra_sources="deb file://$local_repo $DISTRO_TARGET_NAME $DISTRO_TARGET_COMPONENT"
+    fi
+
+    info "starting container"
+    local build_container_id=`docker_container_start $baseimage_name "$key" -v "$(cf_distro_aptcache_volume):$(get_aptcache_dir)" $container_param`
 
     docker_set_apt_proxy $build_container_id "$DISTRO_PROXY"
     docker_set_apt_sources $build_container_id "$DISTRO_APT_EXTRA_SOURCES"
+
+    if [ "$DISTRO_APT_USE_BUILT_REPO" ]; then
+        info "adding local apt repo"
+        docker_exec_sh $build_container_id "apt-key add $local_repo/apt-repo.pub"
+        docker_set_apt_sources $build_container_id "$extra_sources"
+    fi
+
     docker_apt_update $build_container_id
 
     info "copying source tree $src_dir into container $build_container_id ($build_dir)"
