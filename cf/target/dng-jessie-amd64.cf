@@ -13,6 +13,9 @@ DISTRO_TARGET_COMPONENT="contrib"
 ## comment out if build containers should not use locally built apt repo for dependency installation
 DISTRO_APT_USE_BUILT_REPO=1
 
+## automatically regenerate target repo indices
+DISTRO_APT_AUTO_REGENERATE=1
+
 DISTRO_APT_EXTRA_SOURCES="
     deb http://auto.mirror.devuan.org/merged jessie          main
     deb http://auto.mirror.devuan.org/merged jessie-updates  main

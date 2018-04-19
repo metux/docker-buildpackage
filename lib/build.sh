@@ -46,6 +46,11 @@ __run_build() {
 
     info "destroying temporary build container"
     docker_destroy "$build_container_id"
+
+    if [ "$DISTRO_APT_AUTO_REGENERATE" ]; then
+        info "calling target apt repo regenerate"
+        aptrepo_update
+    fi
 }
 
 cmd_build() {
