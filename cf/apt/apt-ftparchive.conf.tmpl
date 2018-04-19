@@ -1,0 +1,31 @@
+Dir {
+        ArchiveDir              ".";
+        CacheDir                "cache";
+};
+
+Default {
+        Contents::Compress      "gzip bzip2 lzma";
+        Packages::Compress      ". gzip bzip2 lzma";
+        Sources::Compress       ". gzip bzip2 lzma";
+        Translation::Compress   ". gzip bzip2 lzma";
+};
+
+TreeDefault {
+        Directory               "pool/$(DIST)/$(SECTION)";
+        SrcDirectory            "pool/$(DIST)/$(SECTION)";
+};
+
+Tree "dists/@DISTRO@" {
+        Sections                "@SECTIONS@";
+        Architectures           "@ARCHITECTURES@";
+};
+
+APT::FTPArchive::Release {
+        Codename        "@CODENAME@";
+        Suite           "@DISTRO@";
+        Origin          "local";
+        Label           "@LABEL@";
+        Architectures   "@ARCHITECTURES@";
+        Components      "@COMPONENTS@";
+        Description     "@DESCRIPTION@";
+};

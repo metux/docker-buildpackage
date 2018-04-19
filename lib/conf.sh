@@ -4,7 +4,7 @@ load_dist_conf() {
 
     [ "$DCK_BUILDPACKAGE_TARGET_REPO" ] || export DCK_BUILDPACKAGE_TARGET_REPO="$HOME/dckbp-apt-repo"
 
-    [ "$DISTRO_TAG" ] || die "no target distro specified. use --dist <dist> option"
+    [ "$DISTRO_TAG" ] || die "no target distro specified. use --target <dist> option"
 
     [ "$DCK_BUILDPACKAGE_CONFDIR" ] && DCK_BUILDPACKAGE_CFDIR="$DCK_BUILDPACKAGE_CONFDIR"
 

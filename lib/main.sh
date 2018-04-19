@@ -35,6 +35,9 @@ parse_args() {
             "--cleanup"|"--clean")
                 current_cmd="cleanup"
             ;;
+            "--update-aptrepo")
+                current_cmd="update-aptrepo"
+            ;;
             *)
                 WORK_SRC_DIR=$(readlink -f $1)
             ;;
@@ -53,6 +56,9 @@ case "$current_cmd" in
     ;;
     "cleanup")
         cmd_cleanup
+    ;;
+    "update-aptrepo")
+        cmd_update_aptrepo
     ;;
     *)
         help "$progname"
