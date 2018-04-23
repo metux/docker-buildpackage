@@ -34,7 +34,7 @@ create_baseimage() {
     sudo chroot $chroot_tmp apt-get autoclean
 
     sudo tar -C $chroot_tmp -c . | $(get_docker_cmd) import \
-        --message "dck-buildpackage: base image: $DCK_BUILDPACKAGE_TARGET" - $baseimage_name
+        - $baseimage_name
 
     sudo rm -Rf $chroot_tmp
 }
