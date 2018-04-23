@@ -18,8 +18,13 @@ __run_build() {
         extra_sources="deb file://$local_repo $DISTRO_TARGET_NAME $DISTRO_TARGET_COMPONENT"
     fi
 
+    if [ "$DISTRO_APT_USE_CACHE_VOLUME" ]; then
+        info "Using apt cache volume: $(cf_distro_aptcache_volume)"
+        container_param="$container_param -v $(cf_distro_aptcache_volume):$(get_aptcache_dir)"
+    fi
+
     info "starting container"
-    local build_container_id=`docker_container_start $baseimage_name "$key" -v "$(cf_distro_aptcache_volume):$(get_aptcache_dir)" $container_param`
+    local build_container_id=`docker_container_start $baseimage_name "$key" $container_param`
 
     docker_set_apt_proxy $build_container_id "$DISTRO_PROXY"
     docker_set_apt_sources $build_container_id "$DISTRO_APT_EXTRA_SOURCES"
@@ -58,7 +63,11 @@ cmd_build() {
     info "RUNNING BUILD"
     load_dist_conf
     create_baseimage || die "failed to create base image"
-    create_aptcache_volume || die "failed to create aptcache volume"
+
+    if [ "$DISTRO_APT_USE_CACHE_VOLUME" ]; then
+        create_aptcache_volume || die "failed to create aptcache volume"
+    fi
+
     __run_build "$WORK_SRC_DIR" || die "build failed"
     info "FINISHED"
 }
