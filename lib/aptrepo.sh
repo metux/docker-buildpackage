@@ -44,6 +44,8 @@ aptrepo_update() {
 
     _aptrepo_tmpl apt-ftparchive.conf
 
+    rm -rf $repo_dir/cache
+
     mkdir -p $repo_dir/cache \
              $repo_dir/pool/dists/$DISTRO_TARGET_NAME/$DISTRO_TARGET_COMPONENT \
              $dist_root/$DISTRO_TARGET_COMPONENT/binary-$DISTRO_ARCH/ \
