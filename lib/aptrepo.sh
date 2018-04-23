@@ -13,6 +13,8 @@ aptrepo_copy_from_docker() {
         info "remote debfile: $i"
         docker_cp_from $container_id "$i" $pool_dir/
     done
+    info "fixing apt repo permissions: $(cf_distro_target_repo)"
+    sudo chown $(whoami):$(id -g) $(cf_distro_target_repo)
 }
 
 _aptrepo_tmpl() {
