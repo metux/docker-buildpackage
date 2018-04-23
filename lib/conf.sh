@@ -108,3 +108,11 @@ cf_distro_debootstrap_chroot() {
 cf_build_container_prefix() {
     echo -n "dckbp-build-"
 }
+
+## prefix for build-time copy of source tree on host side (will be mounted into container)
+cf_host_src_prefix() {
+    [ "$TEMP" ] || TEMP=/tmp
+    local prefix="$TEMP/dck-buildpackage-src.$(whoami)"
+    mkdir -p $prefix
+    echo -n "$prefix"
+}

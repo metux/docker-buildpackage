@@ -68,6 +68,7 @@ docker_cp_to() {
     local src="$2"
     local dst="$3"
     docker_exec_sh "$container_id" mkdir -p "$dst" || die "failed to mkdir in container: $dst"
+    info $(get_docker_cmd) cp "$src" "$container_id:$dst"
     $(get_docker_cmd) cp "$src" "$container_id:$dst"
 }
 
