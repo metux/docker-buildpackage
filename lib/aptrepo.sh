@@ -25,7 +25,7 @@ _aptrepo_tmpl() {
     mkdir -p $repo_dir/conf
     cat $cfdir/$fn.tmpl \
         | sed -e "s~@SECTIONS@~$DISTRO_TARGET_COMPONENT~g;" \
-        | sed -e "s~@ARCHITECTURES@~$DISTRO_ARCH~g;" \
+        | sed -e "s~@ARCHITECTURES@~$DISTRO_APT_ARCHS~g;" \
         | sed -e "s~@DISTRO@~$DISTRO_TARGET_NAME~g; " \
         | sed -e "s~@CODENAME@~$DISTRO_TARGET_NAME~g;" \
         | sed -e "s~@LABEL@~$DISTRO_TARGET_NAME~g;" \
@@ -50,7 +50,10 @@ aptrepo_update() {
              $repo_dir/pool/dists/$DISTRO_TARGET_NAME/$DISTRO_TARGET_COMPONENT \
              $dist_root/$DISTRO_TARGET_COMPONENT/binary-$DISTRO_ARCH/ \
 
-    touch $dist_root/$DISTRO_TARGET_COMPONENT/binary-$DISTRO_ARCH/Packages
+    for a in $DISTRO_APT_ARCHS ; do
+        mkdir -p $dist_root/$DISTRO_TARGET_COMPONENT/binary-$a
+        touch $dist_root/$DISTRO_TARGET_COMPONENT/binary-$a/Packages
+    done
 
     (cd $repo_dir && apt-ftparchive generate $repo_dir/conf/apt-ftparchive.conf \
                   && apt-ftparchive -c $repo_dir/conf/apt-ftparchive.conf release $dist_root > $dist_root/Release.tmp \

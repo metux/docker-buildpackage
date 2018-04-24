@@ -20,6 +20,8 @@ load_dist_conf() {
     [ "$DISTRO_TARGET_COMPONENT" ] || export DISTRO_TARGET_COMPONENT="contrib"
     [ "$DISTRO_TARGET_REPO"      ] || export DISTRO_TARGET_REPO="$DCK_BUILDPACKAGE_TARGET_REPO/$DISTRO_TAG/"
 
+    [ "$DISTRO_APT_ARCHS"        ] || export DISTRO_APT_ARCHS="$DISTRO_ARCH"
+
     # check whether docker is too old for volume command
     if docker volume 2>&1 | grep "is not a docker command" >/dev/null; then
         info "docker is too old for volume command. disabling apt-cache volume"
