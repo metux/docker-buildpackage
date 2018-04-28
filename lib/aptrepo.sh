@@ -8,6 +8,8 @@ aptrepo_copy_from_docker() {
     local container_id="$1"
     local container_dir="$2"
     local pkgname="$3"
+    local myuid="$(id -u)"
+    local mygid="$(id -g)"
 
     local debfiles=`docker_exec_sh $container_id find $container_dir -maxdepth 1 -name "*.deb"`
     local pool_dir="$(cf_distro_target_repo)/pool/dists/$DISTRO_NAME/$DISTRO_TARGET_COMPONENT"
@@ -18,7 +20,7 @@ aptrepo_copy_from_docker() {
         docker_cp_from $container_id "$i" $pool_dir/$pkgname
     done
     info "fixing apt repo permissions: $(cf_distro_target_repo)"
-    sudo chown $(whoami):$(id -g) $(cf_distro_target_repo)
+    sudo chown "$myuid:$mygid" $(cf_distro_target_repo)
 }
 
 _aptrepo_tmpl() {
