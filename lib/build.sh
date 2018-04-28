@@ -13,6 +13,8 @@ __run_build() {
 
     info "Building package: $pkg_name"
 
+    aptrepo_prepare
+
     if [ "$DISTRO_APT_USE_BUILT_REPO" ]; then
         info "Using locally built apt repo: $(cf_distro_target_repo)"
         container_param="-v $(cf_distro_target_repo):$local_repo"

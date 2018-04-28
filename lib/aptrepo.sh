@@ -1,4 +1,8 @@
 
+aptrepo_prepare() {
+    mkdir -p "$(cf_distro_target_repo)"
+}
+
 ## copy out an package from docker instance into local repo
 aptrepo_copy_from_docker() {
     local container_id="$1"
