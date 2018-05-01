@@ -1,0 +1,14 @@
+Begin4
+Title:          docker-buildpackage
+Version:        0.1
+Entered-date:   2018-05-01
+Description:    Builds Debian packages in docker containers.
+Keywords:       debian,dpkg,build,docker,ci
+Author:         Enrico Weigelt, metux IT consult <info@metux.net>
+Maintained-by:  Enrico Weigelt, metux IT consult <info@metux.net>
+Primary-site:   https://github.com/metux/docker-buildpackage
+Alternate-site: https://github.com/metux/docker-buildpackage
+Original-site:  https://github.com/metux/docker-buildpackage
+Platforms:      GNU
+Copying-policy: AGPLv3
+End
