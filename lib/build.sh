@@ -41,6 +41,14 @@ __run_build() {
     docker_set_apt_proxy $build_container_id "$DISTRO_PROXY"
     docker_set_apt_sources $build_container_id "$DISTRO_APT_EXTRA_SOURCES"
 
+    mkdir -p $srctree/apt-keys
+    for kf in $(cf_distro_apt_extra_keys) ; do
+        bn=$(basename "$kf")
+        cp $kf $srctree/apt-keys/
+        echo "adding key: $bn"
+        docker_exec_sh $build_container_id "apt-key" "add" "$(cf_container_build_prefix)/apt-keys/$bn"
+    done
+
     if [ "$DISTRO_APT_USE_BUILT_REPO" ]; then
         info "adding local apt repo"
         docker_exec_sh $build_container_id "apt-key add $local_repo/apt-repo.pub"

@@ -23,6 +23,9 @@ DISTRO_APT_EXTRA_SOURCES="
     deb http://de.archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse
 "
 
+DISTRO_APT_EXTRA_KEYS="
+"
+
 DISTRO_APT_ARCHS="i386 amd64"
 
 DISTRO_MARK_AUTO="

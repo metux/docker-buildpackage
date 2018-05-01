@@ -74,6 +74,22 @@ cf_distro_keyring() {
     esac
 }
 
+cf_distro_apt_extra_keys() {
+    [ "$DISTRO_APT_EXTRA_KEYS" ] || return 0
+
+    for kf in $DISTRO_APT_EXTRA_KEYS ; do
+        info "extra keyfile: $kf"
+
+        case "$kf" in
+            /*)
+                echo -n "$kf"
+            ;;
+            *)
+                readlink -f "$DCK_BUILDPACKAGE_CFDIR/$kf"
+        esac
+    done
+}
+
 ## build prefix within container
 cf_container_build_prefix() {
     echo -n "/dck-buildpackage/src"

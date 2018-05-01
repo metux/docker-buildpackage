@@ -23,6 +23,10 @@ DISTRO_APT_EXTRA_SOURCES="
     deb http://auto.mirror.devuan.org/merged jessie-updates  main
     deb http://auto.mirror.devuan.org/merged jessie-security main
 "
+
+DISTRO_APT_EXTRA_KEYS="
+"
+
 DISTRO_MARK_AUTO="
 
     adduser
