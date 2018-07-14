@@ -27,6 +27,8 @@ __run_build() {
     fi
 
     local srctree=$(mktemp -d $(cf_host_src_prefix)/XXXXXX)
+    [ "$srctree" ] || die "cant create src temp directory (host)"
+
     info "copying source tree $src_dir to $srctree"
     mkdir -p $srctree
     cp --reflink=auto -R -p $src_dir $srctree
