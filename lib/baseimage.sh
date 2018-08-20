@@ -27,6 +27,10 @@ create_baseimage() {
         "$chroot_tmp" \
         "${DISTRO_MIRROR}" || die "debootstrap"
 
+    if [ "$DISTRO_APT_SOURCES" ]; then
+        echo "$DISTRO_APT_SOURCES" | sudo bash -c 'cat >> /etc/apt/sources.list'
+    fi
+
     for i in $DISTRO_MARK_AUTO ; do
         sudo chroot $chroot_tmp apt-mark auto "$i"
     done
