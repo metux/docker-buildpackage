@@ -1,7 +1,7 @@
 
 help() {
     local progname="$1"
-    echo "$progname [--help]"
+    echo "$progname [--help] [--create-baseimage] [--target=<target>]"
     exit 0
 
 }

@@ -32,6 +32,9 @@ parse_args() {
                 shift
                 DCK_BUILDPACKAGE_TARGET="$1"
             ;;
+            "--create-baseimage")
+                current_cmd="create-baseimage"
+            ;;
             "--cleanup"|"--clean")
                 current_cmd="cleanup"
             ;;
@@ -59,6 +62,9 @@ case "$current_cmd" in
     ;;
     "update-aptrepo")
         cmd_update_aptrepo
+    ;;
+    "create-baseimage")
+        cmd_create_baseimage
     ;;
     *)
         help "$progname"

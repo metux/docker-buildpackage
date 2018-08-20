@@ -38,3 +38,11 @@ create_baseimage() {
 
     sudo rm -Rf $chroot_tmp
 }
+
+cmd_create_baseimage() {
+    [ "$DCK_BUILDPACKAGE_TARGET" ] || die "missing --target <distro> parameter"
+    info "RUNNING BASEIMAGE"
+    load_dist_conf
+    create_baseimage || die "failed to create base image"
+    info "FINISHED"
+}
