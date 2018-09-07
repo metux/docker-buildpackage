@@ -37,7 +37,7 @@ get_docker_cmd() {
     if [ "$DCK_BUILDPACKAGE_DOCKER_CMD" ]; then
         echo -n "$DCK_BUILDPACKAGE_DOCKER_CMD"
     else
-        echo -n "sudo docker"
+        echo -n "docker"
     fi
 }
 
