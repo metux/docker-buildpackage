@@ -1,7 +1,8 @@
 
 __run_build() {
     local src_dir="$1"
-    local key="$(cf_build_container_prefix)$DISTRO_TAG-$(uuidgen)"
+    local uuid="$(uuidgen)"
+    local key="$(cf_build_container_prefix)$DISTRO_TAG-$uuid"
     local baseimage_name=$(cf_distro_baseimage_name)
     local baseimage_id=$(docker_find_image $baseimage_name)
     local current_user=$(whoami)
@@ -10,6 +11,8 @@ __run_build() {
     local pkg_name=$(debsrc_pkg_name $src_dir)
     local container_param=""
     local local_repo="/local-repo"
+
+    [ "$uuid" ] || die "missing uuidgen tool. (debian package: uuid-runtime)"
 
     info "Building package: $pkg_name"
 
