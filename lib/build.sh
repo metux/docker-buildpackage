@@ -51,6 +51,7 @@ __run_build() {
         info "lightweight copy enabled"
     else
         info "copying source tree into container"
+        info "container build prefix: $(cf_container_build_prefix)"
         docker_cp_to $build_container_id "$src_dir:$(cf_container_build_prefix)"
     fi
 
