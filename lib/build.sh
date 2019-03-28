@@ -32,16 +32,27 @@ __run_build() {
     local srctree=$(mktemp -d $(cf_host_src_prefix)/XXXXXX)
     [ "$srctree" ] || die "cant create src temp directory (host)"
 
-    info "copying source tree $src_dir to $srctree"
-    mkdir -p $srctree
-    cp --reflink=auto -R -p $src_dir $srctree
+    if false ; then
+        info "copying source tree $src_dir to $srctree"
+        mkdir -p $srctree
+        cp --reflink=auto -R -p $src_dir $srctree
 
-    container_param="$container_param -v $srctree:$(cf_container_build_prefix)"
+        container_param="$container_param -v $srctree:$(cf_container_build_prefix)"
+    else
+        info "lightweight copy disabled"
+    fi
 
     info "starting container"
     local build_container_id=`docker_container_start $baseimage_name "$key" $container_param`
 
     info "container id: $build_container_id"
+
+    if false ; then
+        info "lightweight copy enabled"
+    else
+        info "copying source tree into container"
+        docker_cp_to $build_container_id "$src_dir:$(cf_container_build_prefix)"
+    fi
 
     docker_set_apt_proxy $build_container_id "$DISTRO_PROXY"
     docker_set_apt_sources $build_container_id "$DISTRO_APT_EXTRA_SOURCES"
