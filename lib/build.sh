@@ -52,7 +52,7 @@ __run_build() {
     else
         info "copying source tree into container"
         info "container build prefix: $(cf_container_build_prefix)"
-        docker_cp_to $build_container_id "$src_dir:$(cf_container_build_prefix)"
+        docker_cp_to $build_container_id "$src_dir" "$(cf_container_build_prefix)"
     fi
 
     docker_set_apt_proxy $build_container_id "$DISTRO_PROXY"
