@@ -62,6 +62,16 @@ __run_build() {
 
     docker_apt_update $build_container_id
 
+    if [ ! -f "$src_dir/debian/control" ]; then
+        info "need to generate debian/control"
+        if [ -f "$src_dir/debian/control.bootstrap" ]; then
+            info "install bootstrap dependencies"
+            docker_exec_sh $build_container_id "cd $build_dir ; mk-build-deps -i -t 'apt-get -o Debug::pkgProblemResolver=yes -y --no-install-recommends' debian/control.bootstrap" || die "failed installing bootstrap build deps"
+        fi
+        info "creating control file"
+        docker_exec_sh $build_container_id "cd $build_dir ; ./debian/rules debian/control" || die "failed generating debian/control"
+    fi
+
     info "install package's build dependencies"
     docker_exec_sh $build_container_id "cd $build_dir ; mk-build-deps -i -t 'apt-get -o Debug::pkgProblemResolver=yes -y --no-install-recommends'" || die "failed installing build deps"
 
