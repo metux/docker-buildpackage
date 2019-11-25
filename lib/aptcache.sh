@@ -9,6 +9,6 @@ get_aptcache_volumes() {
 
 create_aptcache_volume() {
     local volume_id=$(cf_distro_aptcache_volume)
-    info "apt-cache volume: volume_id"
+    info "apt-cache volume: $volume_id"
     docker_volume_create $volume_id
 }
