@@ -9,6 +9,8 @@ DISTRO_PROXY="$http_proxy"
 DISTRO_TARGET_NAME="$DISTRO_NAME"
 DISTRO_TARGET_COMPONENT="contrib"
 
+DISTRO_USE_CCACHE=1
+
 ## comment out if build containers should not use locally built apt repo for dependency installation
 DISTRO_APT_USE_BUILT_REPO=1
 
