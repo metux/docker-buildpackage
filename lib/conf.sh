@@ -117,6 +117,15 @@ cf_distro_aptcache_volume() {
     fi
 }
 
+## get the distro's ccache volume name
+cf_distro_ccache_volume() {
+    if [ "$DCK_BUILDPACKAGE_CCACHE_VOLUME" ]; then
+        echo -n "$DCK_BUILDPACKAGE_CCACHE_VOLUME"
+    else
+        echo -n "dckbp-ccache-$DISTRO_TAG"
+    fi
+}
+
 ## temporary dir for debootstrap
 cf_distro_debootstrap_chroot() {
     echo -n "/tmp/dck-buildpackage/debootstrap-images/$DCK_BUILDPACKAGE_TARGET"

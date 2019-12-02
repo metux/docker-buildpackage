@@ -29,6 +29,11 @@ __run_build() {
         container_param="$container_param -v $(cf_distro_aptcache_volume):$(get_aptcache_dir)"
     fi
 
+    if [ "$DISTRO_USE_CCACHE" ]; then
+        info "Using ccache volume: $(cf_distro_ccache_volume)"
+        container_param="$container_param -v $(cf_distro_ccache_volume):$(get_ccache_dir)"
+    fi
+
     local srctree=$(mktemp -d $(cf_host_src_prefix)/XXXXXX)
     [ "$srctree" ] || die "cant create src temp directory (host)"
 
@@ -72,11 +77,21 @@ __run_build() {
         docker_exec_sh $build_container_id "cd $build_dir ; ./debian/rules debian/control" || die "failed generating debian/control"
     fi
 
+    if [ "$DISTRO_USE_CCACHE" ]; then
+        info "install ccache build dependencies"
+        docker_exec_sh $build_container_id "apt-get install -o Debug::pkgProblemResolver=yes -y --no-install-recommends ccache" || die "failed installing build deps"
+    fi
+
     info "install package's build dependencies"
     docker_exec_sh $build_container_id "cd $build_dir ; mk-build-deps -i -t 'apt-get -o Debug::pkgProblemResolver=yes -y --no-install-recommends'" || die "failed installing build deps"
 
-    info "run the build"
-    docker_exec_sh $build_container_id "cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts)" || die "failed to build package"
+    if [ "$DISTRO_USE_CCACHE" ]; then
+        info "run the build (ccache)"
+        docker_exec_sh $build_container_id "export PATH=\"/usr/lib/ccache:\$PATH\"; export CCACHE_DIR=\"$(get_ccache_dir)\" ; cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts)" || die "failed to build package"
+    else
+        info "run the build"
+        docker_exec_sh $build_container_id "cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts)" || die "failed to build package"
+    fi
 
     info "copy out built packages"
     aptrepo_copy_from_docker $build_container_id $(dirname $build_dir) $pkg_name
@@ -102,6 +117,10 @@ cmd_build() {
 
     if [ "$DISTRO_APT_USE_CACHE_VOLUME" ]; then
         create_aptcache_volume || die "failed to create aptcache volume"
+    fi
+
+    if [ "$DISTRO_USE_CCACHE" ]; then
+        create_ccache_volume || die "failed to create ccache volume"
     fi
 
     __run_build "$WORK_SRC_DIR" || die "build failed"
