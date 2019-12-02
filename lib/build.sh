@@ -87,10 +87,10 @@ __run_build() {
 
     if [ "$DISTRO_USE_CCACHE" ]; then
         info "run the build (ccache)"
-        docker_exec_sh $build_container_id "export PATH=\"/usr/lib/ccache:\$PATH\"; export CCACHE_DIR=\"$(get_ccache_dir)\" ; cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts)" || die "failed to build package"
+        docker_exec_sh $build_container_id "export PATH=\"/usr/lib/ccache:\$PATH\"; export CCACHE_DIR=\"$(get_ccache_dir)\" ; cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts) && rm -Rf $build_dir" || die "failed to build package"
     else
         info "run the build"
-        docker_exec_sh $build_container_id "cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts)" || die "failed to build package"
+        docker_exec_sh $build_container_id "cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts) && rm -Rf $build_dir" || die "failed to build package"
     fi
 
     info "copy out built packages"
@@ -100,7 +100,7 @@ __run_build() {
     docker_destroy "$build_container_id"
 
     info "removing temporary source tree: $srctree"
-    sudo rm -Rf $srctree
+    rm -Rf $srctree
     rmdir $(dirname "$srctree") 2>/dev/null
 
     if [ "$DISTRO_APT_AUTO_REGENERATE" ]; then
