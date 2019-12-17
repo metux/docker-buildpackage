@@ -12,12 +12,16 @@ aptrepo_copy_from_docker() {
     local mygid="$(id -g)"
 
     local debfiles=`docker_exec_sh $container_id find $container_dir -maxdepth 1 -name "*.deb"`
-    local pool_dir="$(cf_distro_target_repo)/pool/dists/$DISTRO_NAME/$DISTRO_TARGET_COMPONENT"
+    local pool_subdir="pool/dists/$DISTRO_NAME/$DISTRO_TARGET_COMPONENT/$pkgname"
+    local pool_dir="$(cf_distro_target_repo)/$pool_subdir"
+    local stat_file="$(cf_distro_target_repo)/stat/$pkgname/latest-debs"
     info "apt repo pool dir=$pool_dir"
-    mkdir -p $pool_dir/$pkgname
+    mkdir -p $(dirname "$stat_file")
+    echo -n > $stat_file
     for i in $debfiles ; do
         info "remote debfile: $i"
-        docker_cp_from $container_id "$i" $pool_dir/$pkgname
+        docker_cp_from $container_id "$i" $pool_dir
+        echo "$pool_subdir/$(basename $i)" >> $stat_file
     done
     info "fixing apt repo permissions: $(cf_distro_target_repo)"
     sudo chown "$myuid:$mygid" $(cf_distro_target_repo)
