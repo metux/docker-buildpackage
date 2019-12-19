@@ -23,8 +23,6 @@ aptrepo_copy_from_docker() {
         docker_cp_from $container_id "$i" $pool_dir
         echo "$pool_subdir/$(basename $i)" >> $stat_file
     done
-    info "fixing apt repo permissions: $(cf_distro_target_repo)"
-    sudo chown "$myuid:$mygid" $(cf_distro_target_repo)
 }
 
 _aptrepo_tmpl() {
