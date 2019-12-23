@@ -87,7 +87,7 @@ __run_build() {
 
     if [ "$DISTRO_USE_CCACHE" ]; then
         info "run the build (ccache)"
-        docker_exec_sh $build_container_id "export PATH=\"/usr/lib/ccache:\$PATH\"; export CCACHE_DEBUG=1; export CCACHE_DIR=\"$(get_ccache_dir)\" ; cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts) && rm -Rf $build_dir" || die "failed to build package"
+        docker_exec_sh $build_container_id "export PATH=\"/usr/lib/ccache:\$PATH\"; export CCACHE_DIR=\"$(get_ccache_dir)\" ; cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts) && rm -Rf $build_dir" || die "failed to build package"
     else
         info "run the build"
         docker_exec_sh $build_container_id "cd $build_dir ; dpkg-buildpackage $(get_dpkg_opts) && rm -Rf $build_dir" || die "failed to build package"
