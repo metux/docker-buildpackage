@@ -39,7 +39,7 @@ __run_build() {
 
     info "copying source tree $src_dir to $srctree"
     mkdir -p $srctree
-    cp --reflink=auto -R -p $src_dir $srctree
+    cp --preserve=all --reflink=auto -R -p $src_dir $srctree
 
     container_param="$container_param -v $srctree:$(cf_container_build_prefix)"
 
