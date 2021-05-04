@@ -31,6 +31,10 @@ create_baseimage() {
         echo "$DISTRO_APT_SOURCES" | sudo bash -c 'cat >> /etc/apt/sources.list'
     fi
 
+    if [ "$DISTRO_EXTRA_PACKAGES" ]; then
+        sudo chroot $chroot_tmp apt-get install -y $DISTRO_EXTRA_PACKAGES
+    fi
+
     for i in $DISTRO_MARK_AUTO ; do
         sudo chroot $chroot_tmp apt-mark auto "$i"
     done
