@@ -14,7 +14,6 @@ load_dist_conf() {
     [ "$DISTRO_ARCH"             ] || die "dist config: missing DISTRO_ARCH"
     [ "$DISTRO_COMPONENTS"       ] || die "dist config: missing DISTRO_COMPONENTS"
     [ "$DISTRO_MIRROR"           ] || die "dist config: missing DISTRO_MIRROR"
-    [ "$DISTRO_INCLUDE"          ] || die "dist config: missing DISTRO_INCLUDE"
     [ "$DISTRO_INIT_CMD"         ] || export DISTRO_INIT_CMD="/sbin/init"
     [ "$DISTRO_TARGET_NAME"      ] || export DISTRO_TARGET_NAME="$DISTRO_NAME"
     [ "$DISTRO_TARGET_COMPONENT" ] || export DISTRO_TARGET_COMPONENT="contrib"
