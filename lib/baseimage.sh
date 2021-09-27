@@ -21,11 +21,14 @@ create_baseimage() {
     [ "$DISTRO_COMPONENTS" ] && debootstrap_args="$debootstrap_args --components=$DISTRO_COMPONENTS"
     [ "$keyring" ]           && debootstrap_args="$debootstrap_args --keyring=$keyring"
 
+    [ "$DISTRO_SCRIPT" ]     || DISTRO_SCRIPT="${DCK_BUILDPACKAGE_CFDIR}/bootstrap/$DISTRO_NAME"
+
     sudo debootstrap \
         $debootstrap_args \
         "${DISTRO_NAME}" \
         "$chroot_tmp" \
-        "${DISTRO_MIRROR}" || die "debootstrap"
+        "${DISTRO_MIRROR}" \
+        "${DISTRO_SCRIPT}" || die "debootstrap"
 
     if [ "$DISTRO_APT_SOURCES" ]; then
         echo "$DISTRO_APT_SOURCES" | sudo bash -c 'cat >> /etc/apt/sources.list'
