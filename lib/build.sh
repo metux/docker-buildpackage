@@ -77,6 +77,11 @@ __run_build() {
         docker_exec_sh $build_container_id "cd $build_dir ; ./debian/rules debian/control" || die "failed generating debian/control"
     fi
 
+    if [ ! -f "$src_dir/debian/changelog" ]; then
+        info "creating changelog file"
+        docker_exec_sh $build_container_id "cd $build_dir ; ./debian/rules debian/changelog" || die "failed generating debian/changelog"
+    fi
+
     if [ "$DISTRO_USE_CCACHE" ]; then
         info "install ccache build dependencies"
         docker_exec_sh $build_container_id "apt-get install -o Debug::pkgProblemResolver=yes -y --no-install-recommends ccache" || die "failed installing build deps"
