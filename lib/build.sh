@@ -21,7 +21,7 @@ __run_build() {
     if [ "$DISTRO_APT_USE_BUILT_REPO" ]; then
         info "Using locally built apt repo: $(cf_distro_target_repo)"
         container_param="-v $(cf_distro_target_repo):$local_repo"
-        extra_sources="deb file://$local_repo $DISTRO_TARGET_NAME $DISTRO_TARGET_COMPONENT"
+        extra_sources="deb [trusted=yes] file://$local_repo $DISTRO_TARGET_NAME $DISTRO_TARGET_COMPONENT"
     fi
 
     if [ "$DISTRO_APT_USE_CACHE_VOLUME" ]; then
