@@ -3,17 +3,6 @@ DISTRO_NAME="xenial"
 DISTRO_ARCH="amd64"
 DISTRO_INCLUDE="build-essential,devscripts,equivs"
 
-DISTRO_TARGET_NAME="$DISTRO_NAME"
-DISTRO_TARGET_COMPONENT="contrib"
-
-## comment out if build containers should not use locally built apt repo for dependency installation
-DISTRO_APT_USE_BUILT_REPO=1
-
-DISTRO_APT_USE_CACHE_VOLUME=1
-
-## automatically regenerate target repo indices
-DISTRO_APT_AUTO_REGENERATE=1
-
 DISTRO_MARK_AUTO="
 
     adduser
@@ -274,4 +263,5 @@ DISTRO_MARK_AUTO="
 "
 
 include_target common/ubuntu/mirror
+include_target common/target-apt-repo
 include_target common/remove-files

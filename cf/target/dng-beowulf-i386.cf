@@ -3,17 +3,6 @@ DISTRO_NAME="beowulf"
 DISTRO_ARCH="i386"
 DISTRO_EXCLUDE="isc-dhcp-client,isc-dhcp-common,whiptail,debconf-i18n,e2fsprogs,gpg-agent,nano,tasksel,logrotate,procps,rsyslog,kmod,vim-tiny,vim-common,cron,wget"
 
-DISTRO_TARGET_NAME="$DISTRO_NAME"
-DISTRO_TARGET_COMPONENT="contrib"
-
-## comment out if build containers should not use locally built apt repo for dependency installation
-DISTRO_APT_USE_BUILT_REPO=1
-
-DISTRO_APT_USE_CACHE_VOLUME=1
-
-## automatically regenerate target repo indices
-DISTRO_APT_AUTO_REGENERATE=1
-
 DISTRO_MARK_AUTO="
 
     adduser
@@ -192,4 +181,5 @@ DISTRO_MARK_AUTO="
 DISTRO_EXTRA_PACKAGES="build-essential devscripts equivs"
 
 include_target common/devuan/mirror
+include_target common/target-apt-repo
 include_target common/remove-files
