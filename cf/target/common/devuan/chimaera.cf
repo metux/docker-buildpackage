@@ -1,0 +1,209 @@
+DISTRO_DESCRIPTION="Devuan chimaera"
+DISTRO_NAME="chimaera"
+DISTRO_EXCLUDE="isc-dhcp-client,isc-dhcp-common,whiptail,debconf-i18n,e2fsprogs,gpg-agent,nano,tasksel,logrotate,procps,rsyslog,kmod,vim-tiny,vim-common,cron,wget,pristine-tar,bootlogd,dctrl-tools,gcc-9-base,liblocale-gettext-perl,perl,man-db,manpages,sensible-utils,tzdata,wdiff,xz-utils,apt-utils"
+
+DISTRO_MARK_AUTO="
+
+    adduser
+    apt
+    apt-utils
+
+    base-files
+    base-passwd
+    bash
+    bsdmainutils
+    bsdutils
+    bootlogd
+
+    coreutils
+    cpio
+
+    dash
+    debconf
+    debianutils
+    diffutils
+    dmidecode
+    dpkg
+
+    e2fslibs
+    e2fsprogs
+    eudev
+
+    fdisk
+    findutils
+
+    gcc-10-base
+    gcc-9-base
+    gnupg
+    gpgv
+    grep
+    gzip
+
+    hostname
+
+    ifupdown
+    insserv
+    iproute2
+    iptables
+    iputils-ping
+    init
+    init-system-helpers
+    initscripts
+
+    less
+
+    libacl1
+    libattr1
+    libapt-pkg6.0
+    libassuan0
+    libaudit-common
+    libaudit1
+
+    libblkid1
+    libbpf0
+    libbsd0
+    libbz2-1.0
+
+    libc-bin
+    libc6
+    libcap2
+    libcom-err2
+    libcap2-bin
+    libcap-ng0
+    libcrypt1
+
+    libdb5.3
+    libdebconfclient0
+
+    libedit2
+    libestr0
+    libelf1
+    libeudev1
+
+    libfdisk1
+    libffi7
+
+    libgcc-s1
+    libgcrypt20
+    libgmp10
+    libgnutls30
+    libgpg-error0
+    libgssapi-krb5-2
+
+    libhogweed6
+
+    libidn2-0
+    libiptc0
+
+    libjansson4
+
+    libksba8
+    libk5crypto3
+    libkeyutils1
+    libkrb5-3
+    libkrb5support0
+
+    liblocale-gettext-perl
+    liblzma5
+    liblz4-1
+
+    libmnl0
+    libmount1
+    libmd0
+
+    libncurses5
+    libncursesw5
+    libnewt0.52
+    libnfnetlink0
+    libnetfilter-conntrack3
+    libnpth0
+    libncursesw6
+    libnettle8
+    libnftables1
+    libnftnl11
+    libnsl2
+
+    libpam-modules
+    libpam-modules-bin
+    libpam-runtime
+    libpam0g
+    libpcre3
+    libpipeline1
+    libpopt0
+    libp11-kit0
+    libpcre2-8-0
+
+    libreadline8
+
+    libseccomp2
+    libselinux1
+    libsemanage-common
+    libsemanage1
+    libsepol1
+    libslang2
+    libsmartcols1
+    libss2
+    libstdc++6
+    libsqlite3-0
+    libssl1.1
+
+    libtasn1-6
+    libtinfo6
+    libtirpc-common
+    libtirpc3
+
+    libunistring2
+    libuuid1
+
+    libxapian30
+    libxtables12
+    libxxhash0
+
+    libzstd1
+
+    login
+    lsb-base
+
+    mawk
+    mount
+
+    ncurses-base
+    ncurses-bin
+    net-tools
+    netbase
+    nftables
+
+    perl-base
+    passwd
+    pinentry-curses
+    procps
+
+    readline-common
+
+    sed
+    sensible-utils
+    startpar
+    sysv-rc
+    sysvinit
+    sysvinit-core
+    sysvinit-utils
+
+    tar
+    tasksel
+    tasksel-data
+    tzdata
+
+    util-linux
+
+    vim-common
+
+    xxd
+
+    zlib1g
+"
+
+DISTRO_EXTRA_PACKAGES="build-essential devscripts equivs"
+
+include_target common/devuan/mirror
+include_target common/target-apt-repo
+include_target common/remove-files
