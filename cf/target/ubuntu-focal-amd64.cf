@@ -5,7 +5,7 @@ DISTRO_COMPONENTS="main,restricted,universe,multiverse"
 DISTRO_MIRROR="http://de.archive.ubuntu.com/ubuntu/"
 DISTRO_INCLUDE="perl-openssl-defaults,build-essential,devscripts,equivs"
 DISTRO_PROXY="$http_proxy"
-DISTRO_KEYRING="keys/ubuntu-focal.gpg"
+DISTRO_KEYRING="keys/ubuntu/${DISTRO_NAME}.gpg"
 
 DISTRO_TARGET_NAME="$DISTRO_NAME"
 DISTRO_TARGET_COMPONENT="contrib"

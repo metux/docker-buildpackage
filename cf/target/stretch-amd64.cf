@@ -6,7 +6,7 @@ DISTRO_MIRROR="http://deb.debian.org/debian/"
 DISTRO_INCLUDE="sysvinit-core,build-essential,devscripts,equivs"
 DISTRO_EXCLUDE="systemd,whiptail,dmidecode,dmsetup"
 DISTRO_PROXY="$http_proxy"
-DISTRO_KEYRING="keys/debian-stretch.gpg"
+DISTRO_KEYRING="keys/debian/${DISTRO_NAME}.gpg"
 
 DISTRO_TARGET_NAME="$DISTRO_NAME"
 DISTRO_TARGET_COMPONENT="contrib"
