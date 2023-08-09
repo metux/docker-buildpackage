@@ -1,0 +1,10 @@
+DISTRO_COMPONENTS="main,restricted,universe,multiverse"
+DISTRO_MIRROR="http://de.archive.ubuntu.com/ubuntu/"
+DISTRO_PROXY="$http_proxy"
+DISTRO_KEYRING="keys/ubuntu/${DISTRO_NAME}.gpg"
+
+DISTRO_APT_EXTRA_SOURCES="
+deb ${DISTRO_MIRROR} ${DISTRO_NAME}-updates main restricted universe multiverse
+deb ${DISTRO_MIRROR} ${DISTRO_NAME}-security main restricted universe multiverse
+deb ${DISTRO_MIRROR} ${DISTRO_NAME}-backports main restricted universe multiverse
+"

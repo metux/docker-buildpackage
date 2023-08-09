@@ -1,12 +1,8 @@
 DISTRO_DESCRIPTION="Debian Stretch"
 DISTRO_NAME="stretch"
 DISTRO_ARCH="amd64"
-DISTRO_COMPONENTS="main,contrib,non-free"
-DISTRO_MIRROR="http://deb.debian.org/debian/"
 DISTRO_INCLUDE="sysvinit-core,build-essential,devscripts,equivs"
 DISTRO_EXCLUDE="systemd,whiptail,dmidecode,dmsetup"
-DISTRO_PROXY="$http_proxy"
-DISTRO_KEYRING="keys/debian/${DISTRO_NAME}.gpg"
 
 DISTRO_TARGET_NAME="$DISTRO_NAME"
 DISTRO_TARGET_COMPONENT="contrib"
@@ -18,17 +14,6 @@ DISTRO_APT_USE_CACHE_VOLUME=1
 
 ## automatically regenerate target repo indices
 DISTRO_APT_AUTO_REGENERATE=1
-
-## overwrite /etc/apt/sources.list on base image generation
-DISTRO_APT_SOURCES="
-    $DISTRO_MIRROR $DISTRO_NAME main contrib non-free
-"
-
-## add lines to /etc/apt/sources.list on each build
-DISTRO_APT_EXTRA_SOURCES=""
-
-DISTRO_APT_EXTRA_KEYS="
-"
 
 DISTRO_MARK_AUTO="
 
@@ -268,4 +253,5 @@ DISTRO_MARK_AUTO="
     zlib1g
 "
 
+include_target common/debian/mirror
 include_target common/remove-files

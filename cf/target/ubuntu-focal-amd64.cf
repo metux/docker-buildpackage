@@ -1,11 +1,7 @@
 DISTRO_DESCRIPTION="Ubuntu Focal"
 DISTRO_NAME="focal"
 DISTRO_ARCH="amd64"
-DISTRO_COMPONENTS="main,restricted,universe,multiverse"
-DISTRO_MIRROR="http://de.archive.ubuntu.com/ubuntu/"
 DISTRO_INCLUDE="perl-openssl-defaults,build-essential,devscripts,equivs"
-DISTRO_PROXY="$http_proxy"
-DISTRO_KEYRING="keys/ubuntu/${DISTRO_NAME}.gpg"
 
 DISTRO_TARGET_NAME="$DISTRO_NAME"
 DISTRO_TARGET_COMPONENT="contrib"
@@ -17,15 +13,6 @@ DISTRO_APT_USE_CACHE_VOLUME=1
 
 ## automatically regenerate target repo indices
 DISTRO_APT_AUTO_REGENERATE=1
-
-DISTRO_APT_EXTRA_SOURCES="
-    deb http://de.archive.ubuntu.com/ubuntu focal-updates main restricted universe multiverse
-    deb http://de.archive.ubuntu.com/ubuntu focal-security main restricted universe multiverse
-    deb http://de.archive.ubuntu.com/ubuntu focal-backports main restricted universe multiverse
-"
-
-DISTRO_APT_EXTRA_KEYS="
-"
 
 XDISTRO_MARK_AUTO="
 
@@ -286,4 +273,5 @@ XDISTRO_MARK_AUTO="
     zlib1g
 "
 
+include_target common/ubuntu/mirror
 include_target common/remove-files

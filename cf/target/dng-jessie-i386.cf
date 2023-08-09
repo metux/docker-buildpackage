@@ -1,11 +1,7 @@
 DISTRO_DESCRIPTION="Devuan Jessie"
 DISTRO_NAME="jessie"
 DISTRO_ARCH="i386"
-DISTRO_COMPONENTS="main,contrib,non-free"
-DISTRO_MIRROR="http://auto.mirror.devuan.org/merged"
 DISTRO_INCLUDE="build-essential,devscripts,equivs"
-DISTRO_PROXY="$http_proxy"
-DISTRO_KEYRING="keys/devuan/${DISTRO_NAME}.gpg"
 
 DISTRO_TARGET_NAME="$DISTRO_NAME"
 DISTRO_TARGET_COMPONENT="contrib"
@@ -17,15 +13,6 @@ DISTRO_APT_USE_CACHE_VOLUME=1
 
 ## automatically regenerate target repo indices
 DISTRO_APT_AUTO_REGENERATE=1
-
-DISTRO_APT_EXTRA_SOURCES="
-    deb http://auto.mirror.devuan.org/merged jessie          main
-    deb http://auto.mirror.devuan.org/merged jessie-updates  main
-    deb http://auto.mirror.devuan.org/merged jessie-security main
-"
-
-DISTRO_APT_EXTRA_KEYS="
-"
 
 DISTRO_MARK_AUTO="
 
@@ -274,4 +261,5 @@ DISTRO_MARK_AUTO="
     zlib1g
 "
 
+include_target common/devuan/mirror
 include_target common/remove-files

@@ -1,0 +1,13 @@
+DISTRO_COMPONENTS="main,contrib,non-free"
+# DISTRO_MIRROR="http://auto.mirror.devuan.org/merged"
+DISTRO_MIRROR="http://deb.devuan.org/merged"
+DISTRO_PROXY="$http_proxy"
+DISTRO_KEYRING="keys/devuan/${DISTRO_NAME}.gpg"
+
+DISTRO_APT_EXTRA_SOURCES="
+${DISTRO_APT_EXTRA_SOURCES}
+#deb ${DISTRO_MIRROR} ${DISTRO_NAME}           main contrib non-free
+deb ${DISTRO_MIRROR} ${DISTRO_NAME}-updates   main contrib non-free
+deb ${DISTRO_MIRROR} ${DISTRO_NAME}-security  main contrib non-free
+deb ${DISTRO_MIRROR} ${DISTRO_NAME}-backports main contrib non-free
+"

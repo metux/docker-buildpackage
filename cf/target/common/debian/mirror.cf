@@ -1,0 +1,9 @@
+DISTRO_COMPONENTS="main,contrib,non-free"
+DISTRO_MIRROR="http://deb.debian.org/debian/"
+DISTRO_PROXY="$http_proxy"
+DISTRO_KEYRING="keys/debian/${DISTRO_NAME}.gpg"
+
+## overwrite /etc/apt/sources.list on base image generation
+DISTRO_APT_SOURCES="
+${DISTRO_MIRROR} ${DISTRO_NAME} main contrib non-free
+"

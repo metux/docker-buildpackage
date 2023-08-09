@@ -1,10 +1,7 @@
 DISTRO_DESCRIPTION="Ubuntu Xenial"
 DISTRO_NAME="xenial"
 DISTRO_ARCH="amd64"
-DISTRO_COMPONENTS="main,restricted,universe,multiverse"
-DISTRO_MIRROR="http://de.archive.ubuntu.com/ubuntu/"
 DISTRO_INCLUDE="build-essential,devscripts,equivs"
-DISTRO_PROXY="$http_proxy"
 
 DISTRO_TARGET_NAME="$DISTRO_NAME"
 DISTRO_TARGET_COMPONENT="contrib"
@@ -16,15 +13,6 @@ DISTRO_APT_USE_CACHE_VOLUME=1
 
 ## automatically regenerate target repo indices
 DISTRO_APT_AUTO_REGENERATE=1
-
-DISTRO_APT_EXTRA_SOURCES="
-    deb http://de.archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse
-    deb http://de.archive.ubuntu.com/ubuntu xenial-security main restricted universe multiverse
-    deb http://de.archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse
-"
-
-DISTRO_APT_EXTRA_KEYS="
-"
 
 DISTRO_MARK_AUTO="
 
@@ -285,4 +273,5 @@ DISTRO_MARK_AUTO="
     zlib1g
 "
 
+include_target common/ubuntu/mirror
 include_target common/remove-files
