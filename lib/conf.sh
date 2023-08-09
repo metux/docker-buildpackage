@@ -1,4 +1,8 @@
 
+include_target() {
+    . $DCK_BUILDPACKAGE_CFDIR/target/$1.cf || die "loading target config for $1"
+}
+
 load_dist_conf() {
     DISTRO_TAG="$DCK_BUILDPACKAGE_TARGET"
 
@@ -8,7 +12,7 @@ load_dist_conf() {
 
     [ "$DCK_BUILDPACKAGE_CONFDIR" ] && DCK_BUILDPACKAGE_CFDIR="$DCK_BUILDPACKAGE_CONFDIR"
 
-    . $DCK_BUILDPACKAGE_CFDIR/target/$DCK_BUILDPACKAGE_TARGET.cf || die "loading dist config for $DISTRO_TAG"
+    include_target "$DCK_BUILDPACKAGE_TARGET"
 
     [ "$DISTRO_NAME"             ] || die "dist config: missing DISTRO_NAME"
     [ "$DISTRO_ARCH"             ] || die "dist config: missing DISTRO_ARCH"

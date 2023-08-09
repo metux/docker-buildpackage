@@ -23,6 +23,8 @@ create_baseimage() {
 
     [ "$DISTRO_SCRIPT" ]     || DISTRO_SCRIPT="${DCK_BUILDPACKAGE_CFDIR}/bootstrap/$DISTRO_NAME"
 
+    info " ... running debootstrap"
+
     sudo debootstrap \
         $debootstrap_args \
         "${DISTRO_NAME}" \
@@ -30,31 +32,45 @@ create_baseimage() {
         "${DISTRO_MIRROR}" \
         "${DISTRO_SCRIPT}" || die "debootstrap"
 
+    info " ... configure extra apt repos"
+
     if [ "$DISTRO_APT_SOURCES" ]; then
         echo "$DISTRO_APT_SOURCES" | sudo bash -c 'cat >> /etc/apt/sources.list'
     fi
+
+    info " ... installing extra packages"
 
     if [ "$DISTRO_EXTRA_PACKAGES" ]; then
         sudo chroot $chroot_tmp apt-get install -y $DISTRO_EXTRA_PACKAGES
     fi
 
+    info " ... marking unneeded packages as auto"
+
     for i in $DISTRO_MARK_AUTO ; do
         sudo chroot $chroot_tmp apt-mark auto "$i"
     done
+
+    info " ... removing unneeded packages"
 
     sudo chroot $chroot_tmp apt-get autoremove -y
     sudo chroot $chroot_tmp apt-get autoclean
 
     sudo chroot $chroot_tmp apt-get remove -y --purge $(sudo chroot $chroot_tmp dpkg -l | grep "^rc" | awk '{print $2}' | tr '\n' ' ')
 
+    info " ... extra package removal"
+
     for i in $DISTRO_REMOVE_PACKAGES ; do
         sudo chroot $chroot_tmp dpkg --force-remove-essential --remove "$i"
         sudo chroot $chroot_tmp dpkg --force-remove-essential --purge "$i"
     done
 
+    info " ... removing unwanted files"
+
     for i in $DISTRO_REMOVE_FILES ; do
         sudo chroot $chroot_tmp rm -Rf "$i"
     done
+
+    info " ... importing docker image"
 
     sudo tar -C $chroot_tmp -c . | $(get_docker_cmd) import \
         - $baseimage_name
