@@ -285,3 +285,5 @@ XDISTRO_MARK_AUTO="
 
     zlib1g
 "
+
+include_target common/remove-files

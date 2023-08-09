@@ -268,5 +268,4 @@ DISTRO_MARK_AUTO="
     zlib1g
 "
 
-DISTRO_REMOVE_PACKAGES="
-"
+include_target common/remove-files
