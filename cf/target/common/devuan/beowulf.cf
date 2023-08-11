@@ -1,0 +1,184 @@
+DISTRO_DESCRIPTION="Devuan Beowulf"
+DISTRO_NAME="beowulf"
+DISTRO_EXCLUDE="isc-dhcp-client,isc-dhcp-common,whiptail,debconf-i18n,e2fsprogs,gpg-agent,nano,tasksel,logrotate,procps,rsyslog,kmod,vim-tiny,vim-common,cron,wget"
+
+DISTRO_MARK_AUTO="
+
+    adduser
+    apt
+    apt-utils
+
+    base-files
+    base-passwd
+    bash
+    bsdmainutils
+    bsdutils
+
+    coreutils
+    cpio
+
+    dash
+    debconf
+    debianutils
+    diffutils
+    dmidecode
+    dpkg
+
+    e2fslibs
+    e2fsprogs
+    eudev
+
+    findutils
+
+    gcc-6-base
+    gnupg
+    gnupg-agent
+    gpgv
+    grep
+    gzip
+
+    hostname
+
+    ifupdown
+    insserv
+    iproute2
+    iptables
+    iputils-ping
+    init
+    init-system-helpers
+    initscripts
+
+    libacl1
+    libattr1
+    libapt-inst2.0
+    libapt-pkg5.0
+    libassuan0
+    libaudit-common
+    libaudit1
+
+    libblkid1
+    libbz2-1.0
+    libbsd0
+
+    libc-bin
+    libc6
+    libcap2
+    libcomerr2
+    libcap-ng0
+
+    libdb5.3
+    libdebconfclient0
+
+    libestr0
+    libelf1
+    libeudev1
+
+    libfdisk1
+    libffi6
+
+    libgcc1
+    libgdbm3
+    libgcrypt20
+    libgpg-error0
+
+    libidn11
+    libip4tc0
+    libip6tc0
+    libiptc0
+
+    libksba8
+
+    liblocale-gettext-perl
+    liblogging-stdlog0
+    liblzma5
+    liblz4-1
+
+    libmnl0
+    libmount1
+
+    libncurses5
+    libncursesw5
+    libnewt0.52
+    libnfnetlink0
+    libnetfilter-conntrack3
+    libnettle6
+    libnpth0
+
+    libpam-modules
+    libpam-modules-bin
+    libpam-runtime
+    libpam0g
+    libpcre3
+    libpipeline1
+    libpopt0
+    libprocps4
+    libprocps6
+
+    libreadline7
+
+    libselinux1
+    libsemanage-common
+    libsemanage1
+    libsepol1
+    libslang2
+    libsmartcols1
+    libss2
+    libstdc++6
+    libsqlite3-0
+    libssl1.0.2
+    libssl1.1
+
+    libtinfo5
+
+    libustr-1.0-1
+    libuuid1
+
+    libxapian30
+    libxtables12
+
+    login
+    lsb-base
+
+    mawk
+    mount
+    multiarch-support
+
+    ncurses-base
+    ncurses-bin
+    net-tools
+    netbase
+
+    perl-base
+    passwd
+    pinentry-curses
+    procps
+
+    readline-common
+
+    sed
+    sensible-utils
+    startpar
+    sysv-rc
+    sysvinit
+    sysvinit-core
+    sysvinit-utils
+
+    tar
+    tasksel
+    tasksel-data
+    tzdata
+
+    util-linux
+
+    vim-common
+
+    xxd
+
+    zlib1g
+"
+
+DISTRO_EXTRA_PACKAGES="build-essential devscripts equivs"
+
+include_target common/devuan/mirror
+include_target common/target-apt-repo
+include_target common/remove-files

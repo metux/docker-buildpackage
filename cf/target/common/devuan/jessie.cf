@@ -1,0 +1,254 @@
+DISTRO_DESCRIPTION="Devuan Jessie"
+DISTRO_NAME="jessie"
+DISTRO_INCLUDE="build-essential,devscripts,equivs"
+
+DISTRO_MARK_AUTO="
+
+    adduser
+    apt
+    apt-utils
+
+    base-files
+    base-passwd
+    bash
+    binutils
+    bsdmainutils
+    bsdutils
+    bzip2
+
+    coreutils
+    cpio
+    cpp
+    cpp-4.9
+    cron
+
+    dash
+    debconf
+    debconf-i18n
+    debhelper
+    debianutils
+    dh-python
+    diffutils
+    dmidecode
+    dpkg
+    dpkg-dev
+
+    e2fslibs
+    e2fsprogs
+
+    fakeroot
+    file
+    findutils
+
+    g++
+    g++-4.9
+    gcc
+    gcc-4.8-base
+    gcc-4.9
+    gcc-4.9-base
+    gettext
+    gettext-base
+    gnupg
+    gpgv
+    grep
+    groff-base
+    gzip
+
+    hostname
+
+    isc-dhcp-client
+    isc-dhcp-common
+    initramfs-tools
+    insserv
+    intltool-debian
+    iptables
+    iputils-ping
+
+    kmod
+
+    less
+
+    libacl1
+    libapt-inst1.5
+    libapt-pkg4.12
+    libasan1
+    libasprintf0c2
+    libatomic1
+    libattr1
+    libaudit-common
+    libaudit1
+
+    libblkid1
+    libboost-iostreams1.55.0
+    libbz2-1.0
+
+    libc-bin
+    libc-dev-bin
+    libc6
+    libc6-dev
+    libcap2
+    libcilkrts5
+    libcloog-isl4
+    libcomerr2
+    libcroco3
+
+    libdb5.3
+    libdebconfclient0
+    libdns-export100
+    libdpkg-perl
+
+    libestr0
+    libexpat1
+
+    libfakeroot
+    libfdisk1
+    libffi6
+
+    libgcc-4.9-dev
+    libgcc1
+    libgdbm3
+    libglib2.0-0
+    libgmp10
+    libgnutls-deb0-28
+    libgnutls-openssl27
+    libgomp1
+
+    libhogweed2
+
+    libicu52
+    libidn11
+    libirs-export91
+    libisc-export95
+    libisccfg-export90
+    libisl10
+    libitm1
+
+    libjson-c2
+
+    libkmod2
+
+    liblocale-gettext-perl
+    liblogging-stdlog0
+    liblognorm1
+    liblsan0
+    liblzma5
+
+    libmagic1
+    libmnl0
+    libmount1
+    libmpc3
+    libmpdec2
+    libmpfr4
+
+    libncurses5
+    libncursesw5
+    libnetfilter-acct1
+    libnettle4
+    libnewt0.52
+    libnfnetlink0
+
+    libp11-kit0
+    libpam-modules
+    libpam-modules-bin
+    libpam-runtime
+    libpam0g
+    libpcre3
+    libpipeline1
+    libpopt0
+    libprocps3
+    libpsl0
+    libpython3-stdlib
+    libpython3.4-minimal
+    libpython3.4-stdlib
+
+    libquadmath0
+
+    libreadline6
+
+    libselinux1
+    libsemanage-common
+    libsemanage1
+    libsepol1
+    libsigc++-2.0-0c2a
+    libslang2
+    libsmartcols1
+    libsqlite3-0
+    libss2
+    libssl1.0.0
+    libstdc++-4.9-dev
+    libstdc++6
+
+    libtasn1-6
+    libtext-charwidth-perl
+    libtext-iconv-perl
+    libtext-wrapi18n-perl
+    libtimedate-perl
+    libtinfo5
+    libtsan0
+
+    libubsan0
+    libudev1
+    libunistring0
+    libusb-0.1-4
+    libustr-1.0-1
+    libuuid1
+
+    libxml2
+
+    libxtables10
+
+    linux-libc-dev
+    logrotate
+
+    make
+    man-db
+    manpages
+    mawk
+    mime-support
+    multiarch-support
+
+    nano
+    ncurses-base
+    ncurses-bin
+    netcat-traditional
+    nfacct
+
+    patch
+    perl
+    perl-base
+    perl-modules
+    po-debconf
+    python3
+    python3-minimal
+    python3.4
+    python3.4-minimal
+
+    readline-common
+    rsyslog
+
+    sed
+    sensible-utils
+    startpar
+    tar
+
+    tasksel
+    tasksel-data
+    traceroute
+    tzdata
+
+    util-linux
+
+    vim-common
+    vim-tiny
+
+    wget
+    whiptail
+
+    xz-utils
+
+    zlib1g
+"
+
+include_target common/devuan/mirror
+include_target common/target-apt-repo
+include_target common/remove-files
