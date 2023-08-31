@@ -44,6 +44,8 @@ Environment variables:
                                     has its own repo in subdir named by target.
     * DCK_BUILDPACKAGE_CONFDIR      config directory (defaults ./cf relative to the
                                     dck-buildpackage main script)
+    * DISTRO_TARGET_REPO            actual target repo directory, derived from
+                                    DCK_BUILDPACKAGE_TARGET_REPO if not given.
 
 2DO:
     * publishing built packages to remote repos
