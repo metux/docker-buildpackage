@@ -19,6 +19,7 @@ create_baseimage() {
     [ "$DISTRO_INCLUDE" ]    && debootstrap_args="$debootstrap_args --include=$DISTRO_INCLUDE"
     [ "$DISTRO_EXCLUDE" ]    && debootstrap_args="$debootstrap_args --exclude=$DISTRO_EXCLUDE"
     [ "$DISTRO_COMPONENTS" ] && debootstrap_args="$debootstrap_args --components=$DISTRO_COMPONENTS"
+    [ "$DISTRO_VARIANT" ]    && debootstrap_args="$debootstrap_args --variant=$DISTRO_VARIANT"
     [ "$keyring" ]           && debootstrap_args="$debootstrap_args --keyring=$keyring"
 
     [ "$DISTRO_SCRIPT" ]     || DISTRO_SCRIPT="${DCK_BUILDPACKAGE_CFDIR}/bootstrap/$DISTRO_NAME"
@@ -60,6 +61,7 @@ create_baseimage() {
     info " ... extra package removal"
 
     for i in $DISTRO_REMOVE_PACKAGES ; do
+        info "removing: $i"
         sudo chroot $chroot_tmp dpkg --force-remove-essential --remove "$i"
         sudo chroot $chroot_tmp dpkg --force-remove-essential --purge "$i"
     done
