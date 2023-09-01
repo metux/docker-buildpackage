@@ -1,3 +1,1 @@
-DISTRO_ARCH="amd64"
-
-include_target common/devuan/chimaera
+devuan-chimaera-amd64.cf
