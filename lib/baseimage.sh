@@ -91,9 +91,7 @@ create_baseimage() {
 
     baseimage_info "marking unneeded packages as auto"
 
-    for i in $DISTRO_MARK_AUTO ; do
-        baseimage_rootfs_exec apt-mark auto "$i"
-    done
+    [ "$DISTRO_MARK_AUTO" ] && baseimage_rootfs_exec apt-mark auto $DISTRO_MARK_AUTO
 
     baseimage_info "removing unneeded packages"
 
@@ -111,9 +109,7 @@ create_baseimage() {
 
     baseimage_info "removing unwanted files"
 
-    for i in $DISTRO_REMOVE_FILES ; do
-        baseimage_rootfs_exec rm -Rf "$i"
-    done
+    [ "$DISTRO_REMOVE_FILES" ] && baseimage_rootfs_exec rm -Rf $DISTRO_REMOVE_FILES
 
     baseimage_info "creating rootfs tarball"
 
