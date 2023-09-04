@@ -11,12 +11,21 @@ create_baseimage() {
     local baseimage_name=$(cf_distro_baseimage_name)
     local baseimage_id=$(docker_find_image "${baseimage_name}")
     local chroot_tmp=$(cf_distro_debootstrap_chroot)
+    local tarball_tmp=$(cf_distro_debootstrap_tarball)
     local debootstra_args=""
 
     if [ "$baseimage_id" ]; then
         baseimage_info "docker image already exists: ${baseimage_id} ... skipping"
         return 0
     fi
+
+    if [ -f "${tarball_tmp}" ]; then
+        baseimage_info "rootfs tarball already exists: ${tarball_tmp} ... loading it"
+        docker_import_tarball "${tarball_tmp}" "${baseimage_name}"
+        return $?
+    fi
+
+    baseimage_info "no rootfs tarball: ${tarball_tmp} ... creating it"
 
     sudo rm -Rf "${chroot_tmp}"
     sudo mkdir -p "${chroot_tmp}" || baseimage_die "mkdir ${chroot_tmp}"
@@ -80,14 +89,21 @@ create_baseimage() {
         sudo chroot "${chroot_tmp}" rm -Rf "$i"
     done
 
+    baseimage_info "creating rootfs tarball"
+
+    mkdir -p `dirname "$tarball_tmp"` || baseimage_die "failed creating tarball dir"
+    sudo tar -C $chroot_tmp -c . > "$tarball_tmp" || baseimage_die "failed taring chroot"
+    sudo rm -Rf $chroot_tmp
+
     baseimage_info "importing docker image"
 
-    sudo tar -C "${chroot_tmp}" -c . | $(get_docker_cmd) import \
-        - "${baseimage_name}"
+    docker_import_tarball "${tarball_tmp}" "${baseimage_name}"
 
     baseimage_info "cleanup"
 
-    sudo rm -Rf "${chroot_tmp}"
+    sudo rm -Rf "$chroot_tmp"
+
+    return $?
 }
 
 cmd_create_baseimage() {

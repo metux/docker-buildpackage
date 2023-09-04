@@ -38,14 +38,16 @@ Cleanup:
     * apt caches remain until calling dck-buildpackage --cleanup
 
 Environment variables:
-    * DCK_BUILDPACKAGE_SIGNKEY      ID of the GPG key to be used for repo signing
-                                    (if absent, use GPGs default sign key)
-    * DCK_BUILDPACKAGE_TARGET_REPO  prefix of the generated apt repos. each target
-                                    has its own repo in subdir named by target.
-    * DCK_BUILDPACKAGE_CONFDIR      config directory (defaults ./cf relative to the
-                                    dck-buildpackage main script)
-    * DISTRO_TARGET_REPO            actual target repo directory, derived from
-                                    DCK_BUILDPACKAGE_TARGET_REPO if not given.
+    * DCK_BUILDPACKAGE_SIGNKEY        ID of the GPG key to be used for repo signing
+                                      (if absent, use GPGs default sign key)
+    * DCK_BUILDPACKAGE_TARGET_REPO    prefix of the generated apt repos. each target
+                                      has its own repo in subdir named by target.
+    * DCK_BUILDPACKAGE_CONFDIR        config directory (defaults ./cf relative to the
+                                      dck-buildpackage main script)
+    * DCK_BUILDPACKAGE_TARBALL_CACHE  cache dir for chroot tarballs (if set, don't
+                                      remove tarballs and reused for image import)
+    * DISTRO_TARGET_REPO              actual target repo directory, derived from
+                                      DCK_BUILDPACKAGE_TARGET_REPO if not given.
 
 2DO:
     * publishing built packages to remote repos

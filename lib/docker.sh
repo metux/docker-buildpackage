@@ -107,3 +107,9 @@ docker_container_start() {
     info "Starting docker container: $name ($baseimage)"
     $(get_docker_cmd) run -d --name "$name" "$@" "$baseimage" "$(get_init_cmd)" || die "cant start container"
 }
+
+docker_import_tarball() {
+    local tarball="$1"
+    local image="$2"
+    $(get_docker_cmd) import "$tarball" "$image" || die "failed container image import: $1"
+}

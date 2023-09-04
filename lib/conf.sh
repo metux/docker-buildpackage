@@ -134,6 +134,14 @@ cf_distro_debootstrap_chroot() {
     echo -n "/tmp/dck-buildpackage/debootstrap-images/$DCK_BUILDPACKAGE_TARGET"
 }
 
+cf_distro_debootstrap_tarball() {
+    if [ "$DCK_BUILDPACKAGE_TARBALL_CACHE" ]; then
+        echo -n "${DCK_BUILDPACKAGE_TARBALL_CACHE}/${DCK_BUILDPACKAGE_TARGET}.tar"
+    else
+        echo -n "/tmp/dck-buildpackage/debootstrap-tarballs/${DCK_BUILDPACKAGE_TARGET}.tar"
+    fi
+}
+
 ## docker build container name prefix
 cf_build_container_prefix() {
     echo -n "dckbp-build-"
