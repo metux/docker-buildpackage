@@ -25,6 +25,7 @@ docker_volume_remove() {
 
 docker_volume_list() {
     $(get_docker_cmd) volume ls -q
+    return $?
 }
 
 docker_init_container() {
@@ -33,9 +34,9 @@ docker_init_container() {
     local container_base="$1"
 
     if [ "$container_name" ]; then
-        container_id=`$(get_docker_cmd) create --hostname "$container_name" --name "$container_name" "$container_base" $(get_init_cmd)`
+        container_id=`$(get_docker_cmd) create --hostname "$container_name" --name "$container_name" "$container_base" $(get_init_cmd)` || die "cant create container"
     else
-        container_id=`$(get_docker_cmd) create "$container_base" $(get_init_cmd)`
+        container_id=`$(get_docker_cmd) create "$container_base" $(get_init_cmd)` || die "cant create container"
     fi
 
     [ "$container_id" ] || die "failed to create container"
@@ -43,10 +44,12 @@ docker_init_container() {
     echo -n "$container_id"
 }
 
+# this one should not die on error, but return it, so callers can decide what to do
 docker_exec_sh() {
     local container_id="$1"
     shift
     $(get_docker_cmd) exec "$container_id" sh -c "$*"
+    return $?
 }
 
 docker_destroy() {
@@ -60,7 +63,7 @@ docker_cp_from() {
     local src="$2"
     local dst="$3"
     mkdir -p $dst
-    $(get_docker_cmd) cp "$container_id:$src" "$dst"
+    $(get_docker_cmd) cp "$container_id:$src" "$dst" || die "failed copying from container: $*"
 }
 
 docker_cp_to() {
@@ -69,7 +72,7 @@ docker_cp_to() {
     local dst="$3"
     docker_exec_sh "$container_id" mkdir -p "$dst" || die "failed to mkdir in container: $dst"
     info $(get_docker_cmd) cp "$src" "$container_id:$dst"
-    $(get_docker_cmd) cp "$src" "$container_id:$dst"
+    $(get_docker_cmd) cp "$src" "$container_id:$dst" || die "failed copying to container: $*"
 }
 
 docker_set_apt_proxy() {
@@ -95,11 +98,12 @@ docker_set_apt_sources() {
 docker_apt_update() {
     local container_id="$1"
     docker_exec_sh $container_id "apt-get update"
+    return $?
 }
 
 docker_container_start() {
     local baseimage="$1"; shift
     local name="$1"; shift
     info "Starting docker container: $name ($baseimage)"
-    $(get_docker_cmd) run -d --name "$name" "$@" "$baseimage" "$(get_init_cmd)"
+    $(get_docker_cmd) run -d --name "$name" "$@" "$baseimage" "$(get_init_cmd)" || die "cant start container"
 }
