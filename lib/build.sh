@@ -48,6 +48,7 @@ __run_build() {
 
     info "container id: $build_container_id"
 
+    docker_exec_sh $build_container_id "mkdir -p /tmp"
     docker_set_apt_proxy $build_container_id "$DISTRO_PROXY"
     docker_set_apt_sources $build_container_id "$DISTRO_APT_EXTRA_SOURCES"
 
