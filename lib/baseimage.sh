@@ -9,7 +9,17 @@ baseimage_info() {
 
 baseimage_builder_init() {
     BASEIMAGE_ROOTFS="$(cf_distro_debootstrap_chroot)"
-    baseimage_info "builder type: sudo"
+    if [ "$DISTRO_BUILDER_IMAGE" ]; then
+        baseimage_info "builder type: docker"
+        local uuid="$(uuidgen)"
+        local key="$(cf_build_container_prefix)$DISTRO_TAG-$uuid"
+        BASEIMAGE_CONTAINER_ID="$(docker_container_start "${DISTRO_BUILDER_IMAGE}" "$key" -v ${DCK_BUILDPACKAGE_PREFIX}:${DCK_BUILDPACKAGE_PREFIX})"
+        baseimage_info "builder container: $BASEIMAGE_CONTAINER_ID"
+        [ "$BASEIMAGE_CONTAINER_ID" ] || baseimage_die "failed starting builder container"
+    else
+        baseimage_info "builder type: sudo"
+    fi
+
     baseimage_info "creating rootfs: ${BASEIMAGE_ROOTFS}"
     [ "${BASEIMAGE_ROOTFS}" ] || baseimage_die "no rootfs path"
     baseimage_builder_exec rm -Rf "${BASEIMAGE_ROOTFS}"
@@ -18,14 +28,23 @@ baseimage_builder_init() {
 
 baseimage_builder_exec() {
     baseimage_info "builder exec: $@"
-    sudo "$@"
+    if [ "$BASEIMAGE_CONTAINER_ID" ]; then
+        docker exec "${BASEIMAGE_CONTAINER_ID}" "$@"
+    else
+        sudo "$@"
+    fi
     return $?
 }
 
 baseimage_builder_destroy() {
     [ "${BASEIMAGE_ROOTFS}" ] || baseimage_die "no rootfs path"
-    baseimage_info "destroying rootfs: ${BASEIMAGE_ROOTFS}"
-    baseimage_builder_exec rm -Rf "${BASEIMAGE_ROOTFS}"
+    if [ "$BASEIMAGE_CONTAINER_ID" ]; then
+        docker_destroy "${BASEIMAGE_CONTAINER_ID}" "$@"
+    else
+        baseimage_info "destroying rootfs: ${BASEIMAGE_ROOTFS}"
+        baseimage_builder_exec rm -Rf "${BASEIMAGE_ROOTFS}"
+    fi
+    unset BASEIMAGE_CONTAINER_ID
 }
 
 baseimage_rootfs_exec() {

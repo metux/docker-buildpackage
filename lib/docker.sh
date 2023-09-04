@@ -105,7 +105,7 @@ docker_container_start() {
     local baseimage="$1"; shift
     local name="$1"; shift
     info "Starting docker container: $name ($baseimage)"
-    $(get_docker_cmd) run -d --name "$name" "$@" "$baseimage" "$(get_init_cmd)" || die "cant start container"
+    $(get_docker_cmd) run -d --name "$name" "$@" "$baseimage" $(get_init_cmd) || die "cant start container"
 }
 
 docker_import_tarball() {

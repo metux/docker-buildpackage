@@ -11,3 +11,7 @@ deb ${DISTRO_MIRROR} ${DISTRO_NAME}-updates   main contrib non-free
 deb ${DISTRO_MIRROR} ${DISTRO_NAME}-security  main contrib non-free
 deb ${DISTRO_MIRROR} ${DISTRO_NAME}-backports main contrib non-free
 "
+
+DISTRO_INIT_CMD="/bin/sleep infinity"
+DISTRO_BUILDER_IMAGE="debian:stable"
+# DISTRO_BUILDER_IMAGE="dyne/devuan:beowulf"
