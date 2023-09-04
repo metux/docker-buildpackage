@@ -1,6 +1,6 @@
 DISTRO_DESCRIPTION="Devuan Beowulf"
 DISTRO_NAME="beowulf"
-DISTRO_EXCLUDE="isc-dhcp-client,isc-dhcp-common,whiptail,debconf-i18n,e2fsprogs,gpg-agent,nano,tasksel,logrotate,procps,rsyslog,kmod,vim-tiny,vim-common,cron,wget"
+DISTRO_EXCLUDE="usr-is-merged,isc-dhcp-client,isc-dhcp-common,whiptail,debconf-i18n,e2fsprogs,gpg-agent,nano,tasksel,logrotate,procps,rsyslog,kmod,vim-tiny,vim-common,cron,wget"
 
 DISTRO_MARK_AUTO="
 

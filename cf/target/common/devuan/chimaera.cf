@@ -1,6 +1,6 @@
 DISTRO_DESCRIPTION="Devuan chimaera"
 DISTRO_NAME="chimaera"
-DISTRO_EXCLUDE="isc-dhcp-client,isc-dhcp-common,whiptail,debconf-i18n,e2fsprogs,gpg-agent,nano,tasksel,logrotate,procps,rsyslog,kmod,vim-tiny,vim-common,cron,wget,pristine-tar,bootlogd,dctrl-tools,gcc-9-base,liblocale-gettext-perl,perl,man-db,manpages,sensible-utils,tzdata,wdiff,xz-utils,apt-utils"
+DISTRO_EXCLUDE="usr-is-merged,isc-dhcp-client,isc-dhcp-common,whiptail,debconf-i18n,e2fsprogs,gpg-agent,nano,tasksel,logrotate,procps,rsyslog,kmod,vim-tiny,vim-common,cron,wget,pristine-tar,bootlogd,dctrl-tools,gcc-9-base,liblocale-gettext-perl,perl,man-db,manpages,sensible-utils,tzdata,wdiff,xz-utils,apt-utils"
 
 DISTRO_MARK_AUTO="
 
