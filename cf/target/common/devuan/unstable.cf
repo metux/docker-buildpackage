@@ -1,0 +1,112 @@
+# phase 0: debootstrap
+DISTRO_DESCRIPTION="Devuan daedalus"
+DISTRO_NAME="unstable"
+DISTRO_VARIANT="minbase"
+
+# phase 1: install extra packages
+DISTRO_EXTRA_PACKAGES="build-essential devscripts equivs devuan-keyring"
+
+# phase 2: mark auto-installed and do autoremove
+DISTRO_MARK_AUTO="
+    adduser
+    apt
+    base-files
+    base-passwd
+    bash
+    bootlogd
+    bsdutils
+    coreutils
+    dash
+    debconf
+    debianutils
+    diffutils
+    dpkg
+    e2fsprogs
+    findutils
+    gcc-13-base
+    gpgv
+    grep
+    gzip
+    hostname
+    init-system-helpers
+    initscripts
+    insserv
+    libacl1
+    libapt-pkg6.0
+    libattr1
+    libaudit-common
+    libaudit1
+    libblkid1
+    libbz2-1.0
+    libc-bin
+    libc6
+    libcap-ng0
+    libcom-err2
+    libcrypt1
+    libdb5.3
+    libdebconfclient0
+    libeudev1
+    libext2fs2
+    libffi8
+    libgcc-s1
+    libgcrypt20
+    libgmp10
+    libgnutls30
+    libgpg-error0
+    libhogweed6
+    libidn2-0
+    liblz4-1
+    liblzma5
+    libmd0
+    libmount1
+    libnettle8
+    libp11-kit0
+    libpam-modules
+    libpam-modules-bin
+    libpam-runtime
+    libpam0g
+    libpcre2-8-0
+    libseccomp2
+    libselinux1
+    libsemanage-common
+    libsemanage2
+    libsepol2
+    libsmartcols1
+    libss2
+    libstdc++6
+    libtasn1-6
+    libtinfo6
+    libunistring2
+    libuuid1
+    libxxhash0
+    libzstd1
+    login
+    logsave
+    mawk
+    mount
+    ncurses-base
+    ncurses-bin
+    netbase
+    passwd
+    perl-base
+    sed
+    startpar
+    sysv-rc
+    sysvinit-core
+    sysvinit-utils
+    tar
+    tzdata
+    usr-is-merged
+    util-linux
+    zlib1g
+"
+
+# phase 3: forced removal of some packages
+# note: order can be important here
+DISTRO_REMOVE_PACKAGES="
+    bootlogd
+"
+
+include_target common/devuan/mirror
+include_target common/target-apt-repo
+include_target common/remove-files

@@ -1,0 +1,3 @@
+DISTRO_ARCH="i386"
+
+include_target common/devuan/unstable
