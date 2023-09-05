@@ -62,6 +62,7 @@ __run_build() {
 
     if [ "$DISTRO_APT_USE_BUILT_REPO" ]; then
         info "adding local apt repo"
+        # this is allowed to fail - if local repo hasn't been built yet
         docker_exec_sh $build_container_id "apt-key add $local_repo/apt-repo.pub"
         docker_set_apt_sources $build_container_id "$extra_sources"
     fi
