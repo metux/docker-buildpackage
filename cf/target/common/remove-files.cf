@@ -130,6 +130,9 @@ DISTRO_REMOVE_FILES="
     /var/local
 "
 
-DISTRO_REMOVE_PACKAGES="
-    ${DISTRO_REMOVE_PACKAGES}
+DISTRO_APT_CONFIG="${DISTRO_APT_CONFIG}
+Apt::AutoRemove::SuggestsImportant \"false\" ;
+Apt::AutoRemove::RecommendsImportant \"false\" ;
+APT::Install-Recommends \"false\";
+APT::Install-Suggests \"false\";
 "
