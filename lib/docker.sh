@@ -48,7 +48,7 @@ docker_init_container() {
 docker_exec_sh() {
     local container_id="$1"
     shift
-    $(get_docker_cmd) exec "$container_id" sh -c "$*"
+    $(get_docker_cmd) exec --interactive "$container_id" sh -c "$*"
     return $?
 }
 

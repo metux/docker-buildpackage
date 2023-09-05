@@ -29,7 +29,7 @@ baseimage_builder_init() {
 baseimage_builder_exec() {
     baseimage_info "builder exec: $@"
     if [ "$BASEIMAGE_CONTAINER_ID" ]; then
-        docker exec "${BASEIMAGE_CONTAINER_ID}" "$@"
+        docker exec --interactive "${BASEIMAGE_CONTAINER_ID}" "$@"
     else
         sudo "$@"
     fi
@@ -50,6 +50,13 @@ baseimage_builder_destroy() {
 baseimage_rootfs_exec() {
     baseimage_info "exec in rootfs: $@"
     baseimage_builder_exec chroot "${BASEIMAGE_ROOTFS}" "$@"
+}
+
+baseimage_rootfs_append() {
+    local filename="${BASEIMAGE_ROOTFS}/$1"
+    baseimage_info "appending to rootfs file: $1"
+    baseimage_rootfs_exec tee -a "$1"
+    return $?
 }
 
 create_baseimage() {
@@ -99,7 +106,12 @@ create_baseimage() {
     baseimage_info "configure extra apt repos"
 
     if [ "$DISTRO_APT_SOURCES" ]; then
-        echo "$DISTRO_APT_SOURCES" | baseimage_rootfs_exec bash -c 'cat >> /etc/apt/sources.list' || baseimage_die "failed adding apt sources"
+        echo "$DISTRO_APT_SOURCES" | baseimage_rootfs_append /etc/apt/sources.list || baseimage_die "failed adding apt sources"
+    fi
+
+    if [ "$DISTRO_APT_CONFIG" ]; then
+        baseimage_info "writing extra apt config"
+        echo "$DISTRO_APT_CONFIG" | baseimage_rootfs_append /etc/apt/apt.conf.d/99cleanup || baseimage_die "failed adding extra apt config"
     fi
 
     baseimage_info "installing extra packages"
