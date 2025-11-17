@@ -94,7 +94,7 @@ create_baseimage() {
     baseimage_info "running debootstrap: ${DISTRO_NAME} / ${DISTRO_ARCH}"
 
     baseimage_builder_exec apt-get update
-    baseimage_builder_exec apt-get install -y debootstrap
+    baseimage_builder_exec apt-get install -y debootstrap gpg
 
     baseimage_builder_exec debootstrap \
         $debootstrap_args \
