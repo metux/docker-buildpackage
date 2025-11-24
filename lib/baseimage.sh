@@ -114,6 +114,11 @@ create_baseimage() {
         echo "$DISTRO_APT_CONFIG" | baseimage_rootfs_append /etc/apt/apt.conf.d/99cleanup || baseimage_die "failed adding extra apt config"
     fi
 
+    for a in $DISTRO_FOREIGN_ARCH; do
+        baseimage_info "adding foreign arch $a"
+        baseimage_rootfs_exec dpkg --add-architecture "$a"
+    done
+
     baseimage_info "installing extra packages"
 
     if [ "$DISTRO_EXTRA_PACKAGES" ]; then

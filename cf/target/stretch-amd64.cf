@@ -1,3 +1,2 @@
-DISTRO_ARCH="amd64"
-
+include_target common/arch-amd64
 include_target common/debian/stretch
