@@ -1,0 +1,2 @@
+include_target common/arch-i386
+include_target common/debian/bookworm

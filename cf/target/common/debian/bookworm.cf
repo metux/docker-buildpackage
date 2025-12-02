@@ -1,0 +1,268 @@
+DISTRO_DESCRIPTION="Debian Bookworm / ${DISTRO_ARCH}"
+DISTRO_NAME="bookworm"
+DISTRO_INCLUDE="ca-certificates,sysvinit-core"
+DISTRO_EXCLUDE="systemd,whiptail,dmidecode,dmsetup"
+DISTRO_EXTRA_PACKAGES="build-essential devscripts equivs debian-keyring"
+
+DISTRO_MARK_AUTO="
+
+    adduser
+    apt
+    apt-utils
+
+    base-files
+    base-passwd
+    bash
+    binutils
+    bsdmainutils
+    bsdutils
+    bzip2
+
+    coreutils
+    cpio
+    cpp
+    cron
+    cron-daemon-common
+
+    dash
+    debconf
+    debconf-i18n
+    debianutils
+    diffutils
+    dmsetup
+    dpkg
+    dpkg-dev
+
+    e2fslibs
+    e2fsprogs
+
+    fdisk
+    findutils
+
+    g++
+    gcc
+    gcc-12-base
+    g++-6
+    gnupg-agent
+    gnupg
+    gpgv
+    grep
+    gzip
+
+    hostname
+
+    ifupdown
+    isc-dhcp-client
+    isc-dhcp-common
+    init-system-helpers
+    initscripts
+    insserv
+    iputils-ping
+    iproute2
+    iptables
+
+    kmod
+
+    lsb-base
+
+    libacl1
+    libapparmor1
+    libapt-pkg6.0
+    libargon2-1
+    libatomic1
+    libattr1
+    libaudit-common
+    libaudit1
+    libassuan0
+
+    libblkid1
+    libbsd0
+    libbpf1
+    libbz2-1.0
+
+    libc-bin
+    libc-dev-bin
+    libc6
+    libc6-dev
+    libcap2
+    libcap2-bin
+    libcc1-0
+    libcomerr2
+    libcom-err2
+    libcap-ng0
+    libcrypt1
+    libcryptsetup12
+
+    libdb5.3
+    libdebconfclient0
+    libdevmapper1.02.1
+    libdpkg-perl
+
+    libedit2
+    libestr0
+    libelf1
+    libext2fs2
+
+    libfdisk1
+    libfastjson4
+    libffi8
+
+    libgcc1
+    libgcc-s1
+    libgcrypt20
+    libgmp10
+    libgnutls30
+    libgomp1
+    libgpg-error0
+    libgssapi-krb5-2
+
+    libhogweed6
+
+    libitm1
+    libidn2-0
+    libip4tc2
+    libiptc0
+
+    libjansson4
+    libjson-c5
+
+    libkmod2
+    libksba8
+    libk5crypto3
+    libkeyutils1
+    libkrb5-3
+    libkrb5support0
+
+    liblocale-gettext-perl
+    liblz4-1
+    liblzma5
+    liblognorm5
+
+    libmd0
+    libmnl0
+    libmount1
+    libmpc3
+
+    libncurses5
+    libncursesw5
+    libncursesw6
+    libnettle8
+    libnewt0.52
+    libnetfilter-conntrack3
+    libnfnetlink0
+    libnftables1
+    libnftnl11
+    libnpth0
+
+    libp11-kit0
+    libpcre2-8-0
+    libproc2-0
+    libpam-modules
+    libpam-modules-bin
+    libpam-runtime
+    libpam0g
+    libpcre3
+    libpopt0
+    libpipeline1
+    libpsl5
+    libreadline8
+
+    libquadmath0
+
+    libreadline7
+
+    libsystemd0
+    libseccomp2
+    libselinux1
+    libsemanage-common
+    libsemanage2
+    libsepol2
+    libsepol1
+    libslang2
+    libsqlite3-0
+    libss2
+    libssl3
+    libstdc++6
+    libsmartcols1
+    libsystemd-shared
+
+    libtasn1-6
+    libtext-charwidth-perl
+    libtext-iconv-perl
+    libtext-wrapi18n-perl
+    libtinfo5
+    libtinfo6
+    libtirpc-common
+    libtirpc3
+    libtsan0
+
+    libudev1
+    libunistring2
+    libustr-1.0-1
+    libuuid1
+
+    libxapian30
+    libxtables12
+    libxxhash0
+
+    libzstd1
+
+    less
+    linux-libc-dev
+    login
+    logrotate
+    logsave
+
+    make
+    mawk
+    mount
+
+    nano
+    ncurses-base
+    ncurses-bin
+    netbase
+    nftables
+
+    openssl
+
+    passwd
+    perl
+    perl-base
+    patch
+    procps
+    perl-modules-5.24
+    pinentry-curses
+
+    rsyslog
+    readline-common
+
+    sed
+    sensible-utils
+    startpar
+    systemd
+    sysvinit-utils
+
+    tar
+    tzdata
+    tasksel
+    tasksel-data
+
+    udev
+    usr-is-merged
+    util-linux
+    util-linux-extra
+
+    vim-common
+    vim-tiny
+
+    wget
+
+    xxd
+    xz-utils
+
+    zlib1g
+"
+
+include_target common/debian/mirror
+include_target common/target-apt-repo
+include_target common/remove-files
