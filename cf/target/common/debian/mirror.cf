@@ -5,5 +5,5 @@ DISTRO_KEYRING="keys/debian/${DISTRO_NAME}.gpg"
 
 ## overwrite /etc/apt/sources.list on base image generation
 DISTRO_APT_SOURCES="
-${DISTRO_MIRROR} ${DISTRO_NAME} main contrib non-free
+deb ${DISTRO_MIRROR} ${DISTRO_NAME} main contrib non-free
 "
